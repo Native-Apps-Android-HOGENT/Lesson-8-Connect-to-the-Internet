@@ -20,14 +20,15 @@ package com.example.android.marsrealestate.overview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android.marsrealestate.network.MarsApi
+import com.example.android.marsrealestate.network.MarsApiService
+import com.example.android.marsrealestate.network.MarsProperty
 import retrofit2.Call
 import retrofit2.Response
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class OverviewViewModel : ViewModel() {
+class OverviewViewModel(private val marsApiService: MarsApiService) : ViewModel() {
 
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _response = MutableLiveData<String>()
@@ -47,13 +48,13 @@ class OverviewViewModel : ViewModel() {
      * Sets the value of the status LiveData to the Mars API status.
      */
     private fun getMarsRealEstateProperties() {
-        MarsApi.retrofitService.getProperties().enqueue(object : retrofit2.Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
+        marsApiService.getProperties().enqueue(object : retrofit2.Callback<List<MarsProperty>> {
+            override fun onFailure(call: Call<List<MarsProperty>>, t: Throwable) {
                 _response.value = "Failure: " + t.message
             }
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                _response.value = response.body()
+            override fun onResponse(call: Call<List<MarsProperty>>, response: Response<List<MarsProperty>>) {
+                _response.value = "Success: ${response.body()?.size} Mars properties retrieved"
             }
 
         })

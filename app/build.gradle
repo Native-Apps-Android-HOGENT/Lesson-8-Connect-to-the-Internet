@@ -43,6 +43,15 @@ android {
     androidExtensions {
         experimental = true
     }
+    sourceSets {
+        String sharedTestDir = 'src/sharedTest/java'
+        test {
+            java.srcDirs += sharedTestDir
+        }
+        androidTest {
+            java.srcDirs += sharedTestDir
+        }
+    }
 }
 
 dependencies {
@@ -66,5 +75,9 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
-    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+
+    // Moshi for converting JSON
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 }
