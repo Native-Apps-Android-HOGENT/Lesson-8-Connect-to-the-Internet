@@ -9,8 +9,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -45,8 +44,10 @@ class OverviewViewModelTest {
 
         }
         // Assert
-        assertNotNull(viewModel.response.getValueForTest())
-        assertTrue(viewModel.response.getValueForTest()!!.contains("1"))
+        assertNotNull(viewModel.properties.getValueForTest())
+
+        assertNotNull(viewModel.status.getValueForTest())
+        assertTrue(viewModel.status.getValueForTest()!!.contains("1"))
     }
 
     @Test
@@ -60,8 +61,10 @@ class OverviewViewModelTest {
 
         }
         // Assert
-        assertNotNull(viewModel.response.getValueForTest())
-        assertTrue(viewModel.response.getValueForTest()!!.contains("Failure"))
+        assertNull(viewModel.properties.getValueForTest())
+
+        assertNotNull(viewModel.status.getValueForTest())
+        assertTrue(viewModel.status.getValueForTest()!!.contains("Failure"))
     }
 
     @After
