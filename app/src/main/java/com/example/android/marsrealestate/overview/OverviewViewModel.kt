@@ -71,7 +71,7 @@ class OverviewViewModel(private val marsApiService: MarsApiService) : ViewModel(
         viewModelScope.launch {
             try {
                 _status.value = MarsApiStatus.LOADING
-                val listResult = marsApiService.getProperties(filter.value).await()
+                val listResult = marsApiService.getProperties(filter.value)
                 if (listResult.isNotEmpty()) {
                     _properties.value = listResult
                 }

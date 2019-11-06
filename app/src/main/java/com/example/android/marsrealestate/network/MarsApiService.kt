@@ -20,7 +20,6 @@ package com.example.android.marsrealestate.network
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -42,7 +41,7 @@ enum class MarsApiFilter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy")
 interface MarsApiService {
 
     @GET("realestate")
-    fun getProperties(@Query("filter") type: String): Deferred<List<MarsProperty>>
+    suspend fun getProperties(@Query("filter") type: String): List<MarsProperty>
 }
 
 object MarsApi {
