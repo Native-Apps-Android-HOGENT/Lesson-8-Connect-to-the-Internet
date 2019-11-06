@@ -41,11 +41,22 @@ class OverviewViewModel(private val marsApiService: MarsApiService) : ViewModel(
     private val _properties = MutableLiveData<List<MarsProperty>>()
     val properties: LiveData<List<MarsProperty>> = _properties
 
+    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
+    val navigateToSelectedProperty: LiveData<MarsProperty> = _navigateToSelectedProperty
+
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
     init {
         getMarsRealEstateProperties()
+    }
+
+    fun displayPropertyDetails(marsProperty: MarsProperty) {
+        _navigateToSelectedProperty.value = marsProperty
+    }
+
+    fun displayPropertyDetailsComplete() {
+        _navigateToSelectedProperty.value = null
     }
 
     /**
