@@ -1,6 +1,7 @@
 package com.example.android.marsrealestate.overview
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.android.marsrealestate.network.MarsApiFilter
 import com.example.android.marsrealestate.network.MarsApiService
 import io.mockk.clearMocks
 import io.mockk.every
@@ -36,7 +37,7 @@ class OverviewViewModelTest {
     @Test
     fun overviewViewModel_workingAPI_responseGetsUpdated() {
         // Arrange
-        every { marsApiService.getProperties() } returns CompletableDeferred(listOf(mockk()))
+        every { marsApiService.getProperties(MarsApiFilter.SHOW_ALL.value) } returns CompletableDeferred(listOf(mockk()))
 
         runBlockingTest {
             // Act
@@ -53,7 +54,7 @@ class OverviewViewModelTest {
     @Test
     fun overviewViewModel_ApiError_responseIndicatesFailure() {
         // Arrange
-        every { marsApiService.getProperties() } throws RuntimeException()
+        every { marsApiService.getProperties(MarsApiFilter.SHOW_ALL.value) } throws RuntimeException()
 
         runBlockingTest {
             // Act
