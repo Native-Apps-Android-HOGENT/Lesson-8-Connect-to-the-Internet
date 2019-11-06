@@ -47,7 +47,7 @@ class OverviewViewModelTest {
         assertNotNull(viewModel.properties.getValueForTest())
 
         assertNotNull(viewModel.status.getValueForTest())
-        assertTrue(viewModel.status.getValueForTest()!!.contains("1"))
+        assertEquals(MarsApiStatus.DONE, viewModel.status.getValueForTest()!!)
     }
 
     @Test
@@ -61,10 +61,10 @@ class OverviewViewModelTest {
 
         }
         // Assert
-        assertNull(viewModel.properties.getValueForTest())
+        assertTrue(viewModel.properties.getValueForTest()!!.isEmpty())
 
         assertNotNull(viewModel.status.getValueForTest())
-        assertTrue(viewModel.status.getValueForTest()!!.contains("Failure"))
+        assertEquals(MarsApiStatus.ERROR, viewModel.status.getValueForTest()!!)
     }
 
     @After
